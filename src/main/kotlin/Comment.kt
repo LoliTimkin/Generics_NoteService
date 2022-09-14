@@ -6,5 +6,5 @@ data class Comment(
     var canOpen: Boolean,
     val noteId: Int,
     val text: String,
-    var deleted: Boolean = false
+    var deleted: Boolean = false,
 )

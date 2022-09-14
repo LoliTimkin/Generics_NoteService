@@ -1,4 +1,4 @@
-data class Notes (
+data class Notes(
     val nid: Int,
     val owner_id: Int,
     val title: String,
@@ -11,5 +11,5 @@ data class Notes (
     val privacy: Int,
     val comment_privacy: Int,
     val text_wiki: String,
-    val comments: MutableList<Comment>
+    val comments: MutableList<Comment>,
 )

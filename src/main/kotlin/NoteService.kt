@@ -1,8 +1,7 @@
-
 object NoteService {
 
-    var notes = mutableListOf<Notes>()
-    var comments = mutableListOf<Comment>() // скорее всего нужно заккоментировать, так как этот список
+    private var notes = mutableListOf<Notes>()
+    // var comments = mutableListOf<Comment>() // скорее всего нужно заккоментировать, так как этот список
     // есть и так внутри Notes
 
     class NoNoteException : RuntimeException()
@@ -30,7 +29,8 @@ object NoteService {
         сid: Int */
         for (note in notes) {
             if (note.nid == note_id) {
-                comments.add(comment)
+                //comments.add(comment)
+                note.comments.add(comment)
 
             }
         }
@@ -47,13 +47,15 @@ object NoteService {
         throw NoNoteException()
     }
 
-    fun deleteComment(comment_id: Int,
-                      owner_id: Int): Int {
+    fun deleteComment(
+        comment_id: Int,
+        owner_id: Int,
+    ): Int {
         for (note in notes) {
             if (owner_id == note.owner_id)
                 for (comment in note.comments) {
                     if (comment_id == comment.count) {
-                        comments.remove(comment)
+                        note.comments.remove(comment)
                         return 1
                     }
                 }
@@ -69,13 +71,26 @@ object NoteService {
     need_wiki: Boolean */
         for ((index, note) in notes.withIndex()) {
             if (nid == note.nid) {
-                var note = notes[index]
-                var paramList: ArrayList<Int> = arrayListOf(note.nid, note.comment_privacy, note.privacy)
-                return paramList
+                //var note = notes[index]
+                return arrayListOf(note.nid, note.comment_privacy, note.privacy)
             }
         }
         throw NoNoteException()
     }
 
-}
+    fun get(
+        //note_ids: String,
+        user_id: Int,
+        //offset: Int,
+        //count: Int,
+        //sort: Int = 0,
+    ): ArrayList<Notes> {
+        val list = arrayListOf<Notes>()
+        for (note in notes) {
+            if (user_id == note.owner_id)
+                list += note
+        }
+        return list
+    }
 
+}

@@ -1,7 +1,7 @@
 /*open class GenericPair<A,B>(var id: A, element: B)
 data class GenericPair2<T>: MutableList<T>*/
-open class GenericPair<A>(var elem: MutableList<A> )
-var notes = mutableListOf<Notes>()
+open class GenericPair<A>(var elem: MutableList<A>)
+//var notes = mutableListOf<Notes>()
 
 fun main() {
 
@@ -26,11 +26,14 @@ fun main() {
         groupsCanPost = true,
         canOpen = true,
         noteId = 1,
-        text = "")
+        text = "My first comment in first note")
     /*var list = mutableListOf(note)
     var list2 = mutableListOf(comment)
     var generic: GenericPair<MutableList<Notes>,MutableList<Comment>> = GenericPair(list,list2)*/
     println(NoteService.add(note))
-    println(notes.listIterator(0))
-    println(NoteService.getById(2))
+    //println(NoteService.notes.listIterator(0))
+    println(NoteService.getById(1))
+    println(NoteService.createComment(1, comment))
+    println(note.comments[0].text)
+    println(NoteService.get(user_id = 1))
 }
