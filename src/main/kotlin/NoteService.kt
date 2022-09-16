@@ -93,4 +93,40 @@ object NoteService {
         return list
     }
 
+    fun getComments(
+        //note_id: String,
+        owner_id: Int,
+        //offset: Int,
+        //count: Int,
+        //sort: Int = 0,
+    ): ArrayList<Comment> {
+        val list = arrayListOf<Comment>()
+        for (note in notes) {
+
+            if (owner_id == note.owner_id) {
+                for (comment in note.comments) {
+                    list += comment
+                }
+
+            }
+
+        }
+        return list
+    }
+
+
+    fun restoreComment(
+        comment_id: Int,
+        owner_id: Int,
+    ): Int {
+
+        for (comment in getComments(owner_id)) {
+            if (comment_id == comment.count && comment.deleted == true) {
+                comment.deleted = false
+            }
+            return 1
+        }
+        return 183
+    }
+
 }
