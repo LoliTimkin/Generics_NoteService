@@ -1,8 +1,6 @@
 object NoteService {
 
     private var notes = mutableListOf<Notes>()
-    // var comments = mutableListOf<Comment>() // скорее всего нужно заккоментировать, так как этот список
-    // есть и так внутри Notes
 
     class NoNoteException : RuntimeException()
 
@@ -46,20 +44,39 @@ object NoteService {
         }
         throw NoNoteException()
     }
-
+/*
     fun deleteComment(
         comment_id: Int,
         owner_id: Int,
     ): Int {
+
+        val list = get(owner_id)
         for (note in notes) {
-            if (owner_id == note.owner_id)
+            if (owner_id == note.owner_id) {
                 for (comment in note.comments) {
                     if (comment_id == comment.count) {
                         note.comments.remove(comment)
                         return 1
                     }
                 }
-            return 110
+            }
+        }
+        return 111
+    }
+*/
+    fun deleteComment(
+        comment_id: Int,
+        owner_id: Int,
+    ): Int {
+        val list = get(owner_id)
+        if (list.size == 0) return 110
+        for(note in list) {
+            for (comment in note.comments) {
+                if (comment_id == comment.count) {
+                    note.comments.remove(comment)
+                    return 1
+                }
+            }
         }
         return 111
     }
@@ -102,7 +119,6 @@ object NoteService {
     ): ArrayList<Comment> {
         val list = arrayListOf<Comment>()
         for (note in notes) {
-
             if (owner_id == note.owner_id) {
                 for (comment in note.comments) {
                     list += comment
@@ -113,7 +129,6 @@ object NoteService {
         }
         return list
     }
-
 
     fun restoreComment(
         comment_id: Int,
